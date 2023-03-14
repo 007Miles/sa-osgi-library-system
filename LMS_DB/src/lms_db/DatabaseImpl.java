@@ -1,8 +1,10 @@
 package lms_db;
 
-import com.mysql.jdbc.Connection;
+import java.sql.Connection;
+//import com.mysql.jdbc.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import com.mysql.jdbc.*;
 
 public class DatabaseImpl implements Database{
 
@@ -13,10 +15,18 @@ public class DatabaseImpl implements Database{
 	private String databasePassword;
 	
 	public DatabaseImpl() {
+//		this.diverName = "com.mysql.jdbc.Driver";
+//		this.databaseConnectionLink = "jdbc:mysql://localhost:3306/hms_db";
+//		this.databaseUser = "root";
+//		this.databasePassword = "";
+		
 		this.diverName = "com.mysql.jdbc.Driver";
-		this.databaseConnectionLink = "jdbc:mysql://localhost:3306/hms_db";
-		this.databaseUser = "root";
-		this.databasePassword = "";
+		
+		this.databaseConnectionLink = "jdbc:mysql://localhost:3306/hospdb";
+		this.databaseUser = "hospadmin";
+		this.databasePassword = "pass";
+		
+//		connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hospdb", "hospadmin", "pass");
 	}
 
 	@Override
