@@ -1,5 +1,11 @@
 package staffpublisher;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 //import java.sql.Connection;
 //import java.sql.PreparedStatement;
 //import java.sql.ResultSet;
@@ -17,6 +23,8 @@ public class StaffServiceImpl implements StaffService {
 //	Database database;
 //	Scanner scan;
 	
+	private static final String FILE_NAME = "staff_data.txt";
+	
 	public StaffServiceImpl() {
 //		database = new DatabaseImpl();
 //		connection = database.getDatabaseConnection();
@@ -29,6 +37,21 @@ public class StaffServiceImpl implements StaffService {
 
 	    @Override
 	    public List<Staff> getAllStaff() {
+//	        return staffList;
+	    	List<Staff> staffList = new ArrayList<>();
+	        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
+	            String line;
+	            while ((line = reader.readLine()) != null) {
+	                String[] parts = line.split(",");
+	                int id = Integer.parseInt(parts[0]);
+	                String name = parts[1];
+	                String role = parts[2];
+	                Staff staff = new Staff(id, name, role);
+	                staffList.add(staff);
+	            }
+	        } catch (IOException e) {
+	            System.err.println("Error reading staff data from file: " + e.getMessage());
+	        }
 	        return staffList;
 	    }
 
@@ -44,21 +67,36 @@ public class StaffServiceImpl implements StaffService {
 
 	    @Override
 	    public void addStaffFromConsole() {
-	        Scanner scanner = new Scanner(System.in);
-
-	        System.out.print("Enter staff ID: ");
-	        int id = scanner.nextInt();
-	        scanner.nextLine();
-
-	        System.out.print("Enter staff name: ");
-	        String name = scanner.nextLine();
-
-	        System.out.print("Enter staff role: ");
-	        String role = scanner.nextLine();
-
-	        Staff staff = new Staff(id, name, role);
-	        staffList.add(staff);
-	        System.out.println("Staff added successfully.");
+//	        Scanner scanner = new Scanner(System.in);
+//
+//	        System.out.print("Enter staff ID: ");
+//	        int id = scanner.nextInt();
+//	        scanner.nextLine();
+//
+//	        System.out.print("Enter staff name: ");
+//	        String name = scanner.nextLine();
+//
+//	        System.out.print("Enter staff role: ");
+//	        String role = scanner.nextLine();
+//
+//	        Staff staff = new Staff(id, name, role);
+//	        staffList.add(staff);
+//	        System.out.println("Staff added successfully.");
+	        
+	    	 try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
+	                 BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+	             System.out.print("Enter staff name: ");
+	             String name = reader.readLine();
+	             System.out.print("Enter staff role: ");
+	             String role = reader.readLine();
+	             int id = getNextId();
+	             Staff staff = new Staff(id, name, role);
+	             writer.write(staff.getId() + "," + staff.getName() + "," + staff.getRole() + "\n");
+	             System.out.println("Staff added successfully.");
+	         } catch (IOException e) {
+	             System.err.println("Error adding staff to file: " + e.getMessage());
+	         }
+	        
 	    }
 
 	    @Override
@@ -104,6 +142,21 @@ public class StaffServiceImpl implements StaffService {
 	        System.out.println("Staff deleted successfully.");
 	    }
 	
+	    private int getNextId() throws IOException {
+	        int id = 1;
+	        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
+	            String line;
+	            while ((line = reader.readLine()) != null) {
+	                String[] parts = line.split(",");
+	                int currentId = Integer.parseInt(parts[0]);
+	                if (currentId >= id) {
+	                    id = currentId + 1;
+	                }
+	            }
+	        }
+	        return id;
+	    }
+
 
 	
 	
