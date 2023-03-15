@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URL;
 //import java.sql.Connection;
 //import java.sql.PreparedStatement;
 //import java.sql.ResultSet;
@@ -38,6 +39,11 @@ public class StaffServiceImpl implements StaffService {
 	    @Override
 	    public List<Staff> getAllStaff() {
 //	        return staffList;
+	    	
+//	    	URL url = this.getClass() .getClassLoader() .getResource("staff_data.txt");
+//	    	System.out.println(url+"url");
+	    	
+	    	
 	    	List<Staff> staffList = new ArrayList<>();
 	        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
 	            String line;
@@ -82,9 +88,9 @@ public class StaffServiceImpl implements StaffService {
 //	        Staff staff = new Staff(id, name, role);
 //	        staffList.add(staff);
 //	        System.out.println("Staff added successfully.");
-	        
+	        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	    	 try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
-	                 BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+	                 ) {
 	             System.out.print("Enter staff name: ");
 	             String name = reader.readLine();
 	             System.out.print("Enter staff role: ");
@@ -93,6 +99,9 @@ public class StaffServiceImpl implements StaffService {
 	             Staff staff = new Staff(id, name, role);
 	             writer.write(staff.getId() + "," + staff.getName() + "," + staff.getRole() + "\n");
 	             System.out.println("Staff added successfully.");
+	             
+//	             close
+//	             writer.close();
 	         } catch (IOException e) {
 	             System.err.println("Error adding staff to file: " + e.getMessage());
 	         }
