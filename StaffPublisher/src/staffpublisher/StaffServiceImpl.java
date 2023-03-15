@@ -2,6 +2,7 @@ package staffpublisher;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -110,27 +111,64 @@ public class StaffServiceImpl implements StaffService {
 
 	    @Override
 	    public void updateStaffFromConsole() {
-	        Scanner scanner = new Scanner(System.in);
-
-	        System.out.print("Enter staff ID to update: ");
-	        int id = scanner.nextInt();
-	        scanner.nextLine();
-
-	        Staff staff = getStaffById(id);
-	        if (staff == null) {
-	            System.out.println("Staff with ID " + id + " not found.");
-	            return;
+//	        Scanner scanner = new Scanner(System.in);
+//
+//	        System.out.print("Enter staff ID to update: ");
+//	        int id = scanner.nextInt();
+//	        scanner.nextLine();
+//
+//	        Staff staff = getStaffById(id);
+//	        if (staff == null) {
+//	            System.out.println("Staff with ID " + id + " not found.");
+//	            return;
+//	        }
+//
+//	        System.out.print("Enter new name for staff: ");
+//	        String name = scanner.nextLine();
+//	        staff.setName(name);
+//
+//	        System.out.print("Enter new role for staff: ");
+//	        String role = scanner.nextLine();
+//	        staff.setRole(role);
+//
+//	        System.out.println("Staff updated successfully.");
+	    	
+	    	try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME));
+	                BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME + ".tmp"))) {
+	            boolean found = false;
+	            System.out.print("Enter staff ID to update: ");
+	            int idToUpdate = Integer.parseInt(reader.readLine());
+	            String line;
+	            while ((line = reader.readLine()) != null) {
+	                String[] parts = line.split(",");
+	                int id = Integer.parseInt(parts[0]);
+	                String name = parts[1];
+	                String role = parts[2];
+	                if (id == idToUpdate) {
+	                    found = true;
+	                    System.out.print("Enter new staff name: ");
+	                    String newName = new BufferedReader(new InputStreamReader(System.in)).readLine();
+	                    System.out.print("Enter new staff role: ");
+	                    String newRole = new BufferedReader(new InputStreamReader(System.in)).readLine();
+	                    Staff staff = new Staff(id, newName, newRole);
+	                    writer.write(staff.getId() + "," + staff.getName() + "," + staff.getRole() + "\n");
+	                    System.out.println("Staff updated successfully.");
+	                } else {
+	                    writer.write(line + "\n");
+	                }
+	            }
+	            if (!found) {
+	                System.out.println("No staff found with ID " + idToUpdate);
+	            }
+	        } catch (IOException e) {
+	            System.err.println("Error updating staff in file: " + e.getMessage());
 	        }
-
-	        System.out.print("Enter new name for staff: ");
-	        String name = scanner.nextLine();
-	        staff.setName(name);
-
-	        System.out.print("Enter new role for staff: ");
-	        String role = scanner.nextLine();
-	        staff.setRole(role);
-
-	        System.out.println("Staff updated successfully.");
+	    	
+	        // Replace original file with updated file
+	        File file = new File(FILE_NAME);
+	        file.delete();
+	        new File(FILE_NAME + ".tmp").renameTo(file);
+	    
 	    }
 
 	    @Override
