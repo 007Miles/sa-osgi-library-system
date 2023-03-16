@@ -3,6 +3,7 @@ package staffpublisher;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -25,7 +26,7 @@ public class StaffServiceImpl implements StaffService {
 //	Database database;
 //	Scanner scan;
 	
-	private static final String FILE_NAME = "staff_data.txt";
+	private static final String FILE_NAME = "D:\\SA\\Assignment1\\SA_OSGI_Library_System\\StaffPublisher\\src\\staffpublisher\\staff_data.txt";
 	
 	public StaffServiceImpl() {
 //		database = new DatabaseImpl();
@@ -132,12 +133,20 @@ public class StaffServiceImpl implements StaffService {
 //	        staff.setRole(role);
 //
 //	        System.out.println("Staff updated successfully.");
-	    	
-	    	try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME));
-	                BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME + ".tmp"))) {
+	    	BufferedReader reader;
+			try {
+				reader = new BufferedReader(new FileReader(FILE_NAME));
+			
+	    	try  {
+	    		BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME + ".tmp"));
+	    		System.out.println("check 3");
 	            boolean found = false;
 	            System.out.print("Enter staff ID to update: ");
-	            int idToUpdate = Integer.parseInt(reader.readLine());
+	            
+	            
+	            BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+	            int idToUpdate = Integer.parseInt(input.readLine()) ;
+//	            Integer.parseInt(reader.readLine());
 	            String line;
 	            while ((line = reader.readLine()) != null) {
 	                String[] parts = line.split(",");
@@ -146,6 +155,7 @@ public class StaffServiceImpl implements StaffService {
 	                String role = parts[2];
 	                if (id == idToUpdate) {
 	                    found = true;
+	                    System.out.println(name+" "+role);
 	                    System.out.print("Enter new staff name: ");
 	                    String newName = new BufferedReader(new InputStreamReader(System.in)).readLine();
 	                    System.out.print("Enter new staff role: ");
@@ -163,6 +173,10 @@ public class StaffServiceImpl implements StaffService {
 	        } catch (IOException e) {
 	            System.err.println("Error updating staff in file: " + e.getMessage());
 	        }
+	    	} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 	    	
 	        // Replace original file with updated file
 	        File file = new File(FILE_NAME);
@@ -173,20 +187,49 @@ public class StaffServiceImpl implements StaffService {
 
 	    @Override
 	    public void deleteStaffFromConsole() {
-	        Scanner scanner = new Scanner(System.in);
-
-	        System.out.print("Enter staff ID to delete: ");
-	        int id = scanner.nextInt();
-	        scanner.nextLine();
-
-	        Staff staff = getStaffById(id);
-	        if (staff == null) {
-	            System.out.println("Staff with ID " + id + " not found.");
-	            return;
-	        }
-
-	        staffList.remove(staff);
-	        System.out.println("Staff deleted successfully.");
+//	        Scanner scanner = new Scanner(System.in);
+//
+//	        System.out.print("Enter staff ID to delete: ");
+//	        int id = scanner.nextInt();
+//	        scanner.nextLine();
+//
+//	        Staff staff = getStaffById(id);
+//	        if (staff == null) {
+//	            System.out.println("Staff with ID " + id + " not found.");
+//	            return;
+//	        }
+//
+//	        staffList.remove(staff);
+//	        System.out.println("Staff deleted successfully.");
+	    	
+	    	
+	    	 try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME));
+	                 BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME + ".tmp"))) {
+	             boolean found = false;
+	             System.out.print("Enter staff ID to delete: ");
+	             int idToDelete = Integer.parseInt(reader.readLine());
+	             String line;
+	             while ((line = reader.readLine()) != null) {
+	             String[] parts = line.split(",");
+	             int id = Integer.parseInt(parts[0]);
+	             if (id == idToDelete) {
+	             found = true;
+	             System.out.println("Staff deleted successfully.");
+	             } else {
+	             writer.write(line + "\n");
+	             }
+	             }
+	             if (!found) {
+	             System.out.println("No staff found with ID " + idToDelete);
+	             }
+	             } catch (IOException e) {
+	             System.err.println("Error deleting staff from file: " + e.getMessage());
+	             }
+	             // Replace original file with updated file
+	             File file = new File(FILE_NAME);
+	             file.delete();
+	             new File(FILE_NAME + ".tmp").renameTo(file);
+	    	
 	    }
 	
 	    private int getNextId() throws IOException {
