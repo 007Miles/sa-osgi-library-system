@@ -48,7 +48,8 @@ public class IssueBookPublishImpl implements IssueBookPublish {
 		try {
 //			PrintWriter out = new PrintWriter(ibooks);
 			BufferedWriter out = new BufferedWriter(new FileWriter(ibooks,true));
-			out.append("\n"+ iid + "," + uid + "," + bid + "," + iDate + ",Pending," + period + ",Pending");
+			out.append(iid + "," + uid + "," + bid + "," + iDate + ",Pending," + period + ",Pending");
+			out.newLine();
 			out.close();
 			System.out.println();
 			System.out.println("Book " + bid + "(bid) Successfully issued to User id: " + uid + " on " + iDate + " for " + period + " days...\n");

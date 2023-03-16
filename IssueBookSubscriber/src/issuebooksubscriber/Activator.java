@@ -40,15 +40,14 @@ public class Activator implements BundleActivator {
 				
 //				while (true) {
 				
-				System.out.println("Enter Issue ID: ");
-				iid = sc.nextInt();
-//				if(bookMangement.getAvailability(iid)) {
-//					
-
-				System.out.println("Enter User ID: ");
-				uid = sc.nextInt();
 				System.out.println("Enter Book ID: ");
 				bid = sc.nextInt();
+//				if(bookMangement.getAvailability(bid)) {
+//					
+				System.out.println("Enter Issue ID: ");
+				iid = sc.nextInt();
+				System.out.println("Enter User ID: ");
+				uid = sc.nextInt();
 				System.out.println("Enter Issue Date: ");
 				iDate = sc.next();
 				System.out.println("Enter Borrowing Period: ");
@@ -64,7 +63,7 @@ public class Activator implements BundleActivator {
 				issueBookPublish.issueBooks(iid,uid,bid,iDate,period);
 				// break;
 				
-//				else {
+//				}else {
 //					System.out.println("Sorry the book requested is not available...");
 //					continue;
 //				}
