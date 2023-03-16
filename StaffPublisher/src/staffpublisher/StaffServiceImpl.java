@@ -26,7 +26,7 @@ public class StaffServiceImpl implements StaffService {
 //	Database database;
 //	Scanner scan;
 	
-	private static final String FILE_NAME = "D:\\SA\\Assignment1\\SA_OSGI_Library_System\\StaffPublisher\\src\\staffpublisher\\staff_data.txt";
+	private static final String FILE_NAME = "staff_data.txt";
 	
 	public StaffServiceImpl() {
 //		database = new DatabaseImpl();
@@ -133,12 +133,11 @@ public class StaffServiceImpl implements StaffService {
 //	        staff.setRole(role);
 //
 //	        System.out.println("Staff updated successfully.");
-	    	BufferedReader reader;
-			try {
-				reader = new BufferedReader(new FileReader(FILE_NAME));
+	    	
 			
-	    	try  {
-	    		BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME + ".tmp"));
+	    	try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME));
+	    			BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME + ".tmp"))) {
+	    		
 	    		System.out.println("check 3");
 	            boolean found = false;
 	            System.out.print("Enter staff ID to update: ");
@@ -153,6 +152,7 @@ public class StaffServiceImpl implements StaffService {
 	                int id = Integer.parseInt(parts[0]);
 	                String name = parts[1];
 	                String role = parts[2];
+//	                writer.write(" Hello \n");
 	                if (id == idToUpdate) {
 	                    found = true;
 	                    System.out.println(name+" "+role);
@@ -173,15 +173,12 @@ public class StaffServiceImpl implements StaffService {
 	        } catch (IOException e) {
 	            System.err.println("Error updating staff in file: " + e.getMessage());
 	        }
-	    	} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
 	    	
 	        // Replace original file with updated file
 	        File file = new File(FILE_NAME);
 	        file.delete();
-	        new File(FILE_NAME + ".tmp").renameTo(file);
+	        File newfile = new File(FILE_NAME + ".tmp");
+	        newfile.renameTo(file);
 	    
 	    }
 
@@ -207,7 +204,10 @@ public class StaffServiceImpl implements StaffService {
 	                 BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME + ".tmp"))) {
 	             boolean found = false;
 	             System.out.print("Enter staff ID to delete: ");
-	             int idToDelete = Integer.parseInt(reader.readLine());
+	             
+	             
+	             BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+	             int idToDelete = Integer.parseInt(input.readLine());
 	             String line;
 	             while ((line = reader.readLine()) != null) {
 	             String[] parts = line.split(",");
@@ -228,7 +228,8 @@ public class StaffServiceImpl implements StaffService {
 	             // Replace original file with updated file
 	             File file = new File(FILE_NAME);
 	             file.delete();
-	             new File(FILE_NAME + ".tmp").renameTo(file);
+	             File newfile = new File(FILE_NAME + ".tmp");
+	             newfile.renameTo(file);
 	    	
 	    }
 	
