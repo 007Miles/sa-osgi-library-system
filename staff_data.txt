@@ -1,4 +1,0 @@
-1,qqqqqq,qqqqqq
-2,wwwwww,wwwwww
-3,rrrrr,rrrrr
-4,eeee,eeee
