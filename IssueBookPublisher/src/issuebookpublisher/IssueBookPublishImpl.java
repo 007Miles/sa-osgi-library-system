@@ -9,12 +9,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class IssueBookPublishImpl implements IssueBookPublish {
 	
-	String path = "C:\\Users\\HP\\Desktop\\SLIIT\\3Y 1S\\SA - SE3030\\Assignment 01\\Issue Books.txt"; 
+//	String path = "C:\\Users\\HP\\Desktop\\SLIIT\\3Y 1S\\SA - SE3030\\Assignment 01\\Issue Books.txt"; 
+	String path = "Issue Books.txt";
 //	String path = "Issue Books.txt";
 	String line = "";
 	
@@ -50,9 +52,9 @@ public class IssueBookPublishImpl implements IssueBookPublish {
 			BufferedWriter out = new BufferedWriter(new FileWriter(ibooks,true));
 			out.append(iid + "," + uid + "," + bid + "," + iDate + ",Pending," + period + ",Pending");
 			out.newLine();
-			out.close();
 			System.out.println();
 			System.out.println("Book " + bid + "(bid) Successfully issued to User id: " + uid + " on " + iDate + " for " + period + " days...\n");
+			out.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -97,7 +99,8 @@ public class IssueBookPublishImpl implements IssueBookPublish {
 		int fine = overdueDays * 20;
 		System.out.println("\nTotal fine charged for Issue id: " + riid + " is Rs." + fine + ".00\n");
 		
-		String tempFile = "C:\\Users\\HP\\Desktop\\SLIIT\\3Y 1S\\SA - SE3030\\Assignment 01\\temp file.txt";
+//		String tempFile = "C:\\Users\\HP\\Desktop\\SLIIT\\3Y 1S\\SA - SE3030\\Assignment 01\\temp file.txt";
+		String tempFile = "temp file.txt";
 		String Ifile = "C:\\Users\\HP\\Desktop\\SLIIT\\3Y 1S\\SA - SE3030\\Assignment 01\\Return Books.txt";
 		File oldFile = new File(path);
 		File newFile = new File(tempFile);
@@ -140,10 +143,13 @@ public class IssueBookPublishImpl implements IssueBookPublish {
 
 				}
 			}
+//			Path delPath = Paths.get("C:\\Users\\HP\\Desktop\\SLIIT\\3Y 1S\\SA - SE3030\\Assignment 01\\Issue Books.txt");
+			
 			s.close();
 			pw.flush();
 			pw.close();
 			oldFile.delete();
+//			Files.delete(delPath);
 //			Files.deleteIfExists(Paths.get("C:\\Users\\HP\\Desktop\\SLIIT\\3Y 1S\\SA - SE3030\\Assignment 01\\Issue Books.txt"));
 			File dump = new File(path);
 			newFile.renameTo(dump);
