@@ -6,7 +6,9 @@ public interface StaffService {
 //	public void testdb();
 	
 	List<Staff> getAllStaff();
-    Staff getStaffById(int id);
+	boolean getAvailability(int id);
+    Staff getStaffById();
+    public List<Staff> getStaffByName();
     void addStaffFromConsole();
     void updateStaffFromConsole();
     void deleteStaffFromConsole();
