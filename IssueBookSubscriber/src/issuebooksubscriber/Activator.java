@@ -33,6 +33,7 @@ public class Activator implements BundleActivator {
 			
 			if (input == 1) {
 				int iid;
+				int sid;
 				int uid;
 				int bid;
 				String iDate;
@@ -42,8 +43,11 @@ public class Activator implements BundleActivator {
 				
 				System.out.println("Enter Book ID: ");
 				bid = sc.nextInt();
-//				if(bookMangement.getAvailability(bid)) {
+//				if(bookMangement.getAvailabilityByID(bid)) {
 //					
+				System.out.println("Enter Staff in Charge ID: ");
+				sid =sc.nextInt();
+//				if (staffManagement.getStaff(sid)) {
 				System.out.println("Enter Issue ID: ");
 				iid = sc.nextInt();
 				System.out.println("Enter User ID: ");
@@ -59,12 +63,16 @@ public class Activator implements BundleActivator {
 				issueBookPublish.setBid(bid);
 				issueBookPublish.setiDate(iDate);
 				issueBookPublish.setPeriod(period);
+				issueBookPublish.setSid(sid);
 				
-				issueBookPublish.issueBooks(iid,uid,bid,iDate,period);
+				issueBookPublish.issueBooks(iid,uid,bid,iDate,period,sid);
 				// break;
-				
+//				} else {
+//					System.out.println("Sorry the staff ID of the staff in charge of the book issuing process is not valid. Try again with valid info...");
+//					continue;
+//				}
 //				}else {
-//					System.out.println("Sorry the book requested is not available...");
+//					System.out.println("Sorry the book requested is not available. Try again with valid info...");
 //					continue;
 //				}
 				continue;
