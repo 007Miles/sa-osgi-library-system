@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: IssueBookService
-Bundle-SymbolicName: com.mtit.osgi.IssueBookService
+Bundle-SymbolicName: IssueBookService
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: com.mtit.osgi.issuebookservice.Activator
 Bundle-Vendor: MTIT

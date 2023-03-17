@@ -67,13 +67,13 @@ public class Activator implements BundleActivator {
 //					System.out.println("Sorry the book requested is not available...");
 //					continue;
 //				}
-				break;
+				continue;
 //			}
 
 			}
 			else if (input == 2) {
 				issueBookPublish.viewIssuedBooks();
-				break;
+				continue;
 			}
 			else if (input == 3) {
 				int riid;
@@ -101,11 +101,11 @@ public class Activator implements BundleActivator {
 				overdueDays = sc.nextInt();
 				
 				issueBookPublish.returnBooks(riid, rDate, overdueDays);
-				break;
+				continue;
 			}
 			else if (input == 4) {
 				issueBookPublish.viewReturnBooks();
-				break;
+				continue;
 			}
 			else if (input == 5) {
 				System.exit(0);
