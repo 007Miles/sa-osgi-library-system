@@ -1,1 +1,4 @@
-1,sheron,perera,2001210125,2000.10.02,sheron@gmail.com,07774125415,colombo
+2,Kumara,Perera,,,,,2001521452125,2001.11.15
+3,Kasun,Kumara,,,,,2001201002555,2001.12.11
+4,Nethmi,Perera,,,,,200121021025,2000.12.11
+5,Rasara,Shehera,,,,,200120102515,2001.12.11
