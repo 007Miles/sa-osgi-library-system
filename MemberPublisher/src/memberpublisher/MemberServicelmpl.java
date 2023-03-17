@@ -105,15 +105,15 @@ public class MemberServicelmpl implements MemberService {
             
             writer.write(newMember.getMemberId() + "," + newMember.getFirstName() + "," + newMember.getLastName() + "," + newMember.getDob() + "," + newMember.getNic() + "," + newMember.getPhoneNumber() + "," + newMember.getEmail() + "," + newMember.getAddress() + "\n");
             
-            System.out.println(newMember.getFirstName());
+//            System.out.println(newMember.getFirstName());
 			
-            System.out.println("Member added successfully.");
+            System.out.println("Member : " + newMember.getFirstName() + "added successfully.");
 			writer.close();
 		
             
             
         } catch (IOException e) {
-            System.err.println("Error adding staff to file: " + e.getMessage());
+            System.err.println("Error adding new Member to system: " + e.getMessage());
         }
 		
 		
@@ -194,6 +194,28 @@ public class MemberServicelmpl implements MemberService {
 //			}
 //		}
 		
+		// TODO Auto-generated method stub
+				int count = 0;
+				List<Member> MemberAvailabales = this.getMemberAll();
+				
+				for(Member member: MemberAvailabales) {
+					if(member.getFirstName().contains(keyword) || member.getLastName().contains(keyword) 
+							|| member.getNic().contains(keyword) || member.getAddress().contains(keyword) || member.getDob().contains(keyword) || member.getEmail().contains(keyword)
+							|| member.getPhoneNumber().contains(keyword)) {
+						System.out.println(count + ". "+ "Member ID :" + member.getMemberId() + "| First Name : " + member.getFirstName()
+						+" "+ "| NIC :" + member.getNic() + " "+ "| Phone Number" + member.getPhoneNumber()+" " + "| Email :" + member.getEmail()) ;
+						count++;
+						
+					}
+				}
+				
+				for(int i=0; i<list.size(); i++) {
+					if(list.get(i)[0].contains(keyword) ||  list.get(i)[1].contains(keyword)) {
+						System.out.println(count + ". " + list.get(i)[0]);
+						count++;
+					}
+				}
+		
 		
 	}
 	
@@ -229,24 +251,64 @@ public class MemberServicelmpl implements MemberService {
 	        return null;
 	    }
 	 
+	 @Override
+		public boolean getAvailabilityByID(int memberid) {
+//		 List<Member> MemberAvailabales = this.getMemberAll();
+			// TODO Auto-generated method stub
+		 
+		 try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
+	            String line;
+	            while ((line = reader.readLine()) != null) {
+	            	String[] parts = line.split(",");
+	                int mId = Integer.parseInt(parts[0]);
+	                
+	                if (mId == memberid) {
+	                    return true;
+	                }
+	               
+	            }
+	        } catch (IOException e) {
+	            System.err.println("Error " + e.getMessage());
+	        }
+	        return false;
+		}
+	 
 	 
 	 @SuppressWarnings("resource")
 	@Override
-	    public void deleteMember() {
-	        Scanner scanner = new Scanner(System.in);
+	    public void deleteMember(String dnic) {
+		 List<Member> memberListtoDelete = this.getMemberAll();
 
-	        System.out.print("Enter Member ID to delete: ");
-	        int memberid = scanner.nextInt();
-	        scanner.nextLine();
-
-	        Member member = getMemberById(memberid);
-	        if (member == null) {
-	            System.out.println("Member with ID " + memberid + " not found.");
-	            return;
-	        }
-
-	        memberList.remove(member);
-	        System.out.println("Member deleted successfully.");
+			@SuppressWarnings("resource")
+			Scanner scan2 = new Scanner(System.in);
+			
+//			String memberid = Integer.toString(dmemberid);
+			
+			String dfirstName = ""; String dlastName = ""; String nic = ""; String ddob = ""; String demail = ""; String dphoneNumber = "";  String dAddress = ""; 
+			
+			try(BufferedWriter writer  = new BufferedWriter(new FileWriter(FILE_NAME,false));) {
+				
+				for(Member member: memberListtoDelete) {
+					
+					if(member.getNic().equals(dnic)) {
+						
+											
+					}
+					else {
+					
+					writer.write(member.getMemberId()+","+member.getFirstName()+","+ member.getLastName()+","+","+ member.getNic()+","+ member.getDob()+","+ member.getEmail()+","+ member.getPhoneNumber()+","+ member.getAddress()+ "\n" );
+					}
+				}
+				
+			
+				
+				System.out.println("\nMember Deleted Successfully....\n");
+				writer.close();
+				
+			}catch(IOException e){
+				System.out.println("Writing error: " + e.getMessage());
+				
+			}
 	 }
 		 
 //		 try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME));
@@ -336,7 +398,7 @@ public class MemberServicelmpl implements MemberService {
 		@SuppressWarnings("resource")
 		Scanner scan2 = new Scanner(System.in);
 		
-		String tbPhoneNumber = ""; String tbEmail = ""; String tbAddress = "";
+		String dfirstName = ""; String dlastName = ""; String dnic = ""; String ddob = ""; String tbEmail = ""; String tbPhoneNumber = "";  String tbAddress = ""; 
 		
 		try(BufferedWriter writer  = new BufferedWriter(new FileWriter(FILE_NAME,false));) {
 			
@@ -351,19 +413,19 @@ public class MemberServicelmpl implements MemberService {
 					tbAddress = scan2.nextLine();
 
 					System.out.println(member.getNic());
-					writer.write(tbPhoneNumber+","+ tbEmail+","+ tbAddress+"\n" );
+					writer.write(member.getMemberId()+","+member.getFirstName()+","+member.getLastName()+","+member.getNic()+","+member.getDob()+","+tbEmail+","+tbPhoneNumber+","+ tbAddress+"\n" );
 					
 										
 				}
 				else {
 				
-				writer.write(member.getPhoneNumber()+","+ member.getEmail()+","+ member.getAddress()+","+ "\n" );
+					writer.write(member.getMemberId()+","+member.getFirstName()+","+ member.getLastName()+","+","+ member.getNic()+","+ member.getDob()+","+ member.getEmail()+","+ member.getPhoneNumber()+","+ member.getAddress()+ "\n" );
 				}
 			}
 			
 		
 			
-			System.out.println("\nMember updated Successfully....\n");
+			System.out.println("\nMember Updated Successfully....\n");
 			writer.close();
 			
 		}catch(IOException e){
