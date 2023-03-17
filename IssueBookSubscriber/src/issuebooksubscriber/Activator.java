@@ -39,7 +39,7 @@ public class Activator implements BundleActivator {
 		
 		while (true) {
 			int input;
-			System.out.println("\n\t---------Choose a number to issue a book or to view issued books list---------\n");
+			System.out.println("\n\t---------Choose a number to gain access to issue book and return book operations---------\n");
 			System.out.println("1. Issue a book");
 			System.out.println("2. View issued books list");
 			System.out.println("3. Return a Book");
