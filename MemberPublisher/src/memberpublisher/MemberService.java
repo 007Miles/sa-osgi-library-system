@@ -13,9 +13,10 @@ public interface MemberService {
 //	List<Member> getAllMemberDetails();
 	public void searchMemberDetails(String keyword);
 //	public void updateMemberDetails();
-	public void deleteMember();
+	public void deleteMember(String dnic);
 	
 	public List<Member> getMemberAll();
 	public void editMemberDetails(String nic); 
+	public boolean getAvailabilityByID(int memberid);
 	
 }
