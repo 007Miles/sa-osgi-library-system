@@ -95,6 +95,7 @@ public class IssueBookPublishImpl implements IssueBookPublish {
 		this.overdueDays = overdueDays;
 		
 		int fine = overdueDays * 20;
+		System.out.println("\nRs.20 per one overdue day...");
 		System.out.println("\nTotal fine charged for Issue id: " + riid + " is Rs." + fine + ".00\n");
 		
 //		String tempFile = "C:\\Users\\HP\\Desktop\\SLIIT\\3Y 1S\\SA - SE3030\\Assignment 01\\temp file.txt";

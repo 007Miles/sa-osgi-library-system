@@ -130,7 +130,7 @@ public class Activator implements BundleActivator {
 				break;
 			}
 			else {
-				System.out.println("Enter a valid number...");
+				System.err.println("Enter a valid number...");
 				continue;
 			}
 		}
