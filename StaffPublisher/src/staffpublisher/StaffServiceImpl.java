@@ -44,16 +44,95 @@ public class StaffServiceImpl implements StaffService {
 	        }
 	        return staffList;
 	    }
+	     
+	    @Override
+	    public boolean getAvailability(int id) {
+	    	
+	    	try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
+	            String line;
+	            while ((line = reader.readLine()) != null) {
+	                String[] parts = line.split(",");
+	                int staffId = Integer.parseInt(parts[0]);
+	                if (staffId == id) {
+	                    return true;
+	                }
+	            }
+	        } catch (IOException e) {
+	            System.err.println("Error getting staff data from file: " + e.getMessage());
+	        }
+	        return false;
+	    	
+	    }
 
 	    @Override
-	    public Staff getStaffById(int id) {
-	        for (Staff staff : staffList) {
-	            if (staff.getId() == id) {
-	                return staff;
+	    public Staff getStaffById() {
+//	        for (Staff staff : staffList) {
+//	            if (staff.getId() == id) {
+//	                return staff;
+//	            }
+//	        }
+//	        return null;
+	    	
+	    	System.out.print("Enter staff ID: ");
+	    	
+	    	BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+
+	        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
+	        	
+	        	
+	        	int id =  Integer.parseInt(input.readLine()) ;
+	        
+	        
+	            String line;
+	            while ((line = reader.readLine()) != null) {
+	                String[] parts = line.split(",");
+	                int currentId = Integer.parseInt(parts[0]);
+	                if (currentId == id) {
+	                    String name = parts[1];
+	                    String role = parts[2];
+	                    return new Staff(id,name,role);
+	                }
 	            }
-	        }
+	        }catch (IOException e) {
+	             System.err.println("Error Searching staff by id: " + e.getMessage());
+	         }
+	        System.out.println("No staff member found with that ID ");
 	        return null;
 	    }
+	    
+	    
+	    @Override
+	    public List<Staff> getStaffByName() {
+	    	System.out.print("Enter Staff Name: ");
+	    	
+	    	BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+//	        String name = System.console().readLine();
+	        
+	        List<Staff> matchingStaff = new ArrayList<>();
+
+	        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
+	        	
+	        	String name =  input.readLine();
+	        	
+	            String line;
+	            while ((line = reader.readLine()) != null) {
+	                String[] parts = line.split(",");
+	                int id = Integer.parseInt(parts[0]);
+	                String staffName = parts[1];
+	                String role = parts[2];
+	                if (staffName.equalsIgnoreCase(name)) {
+	                    matchingStaff.add(new Staff(id,staffName,role));
+	                }
+	            }
+	        }catch (IOException e) {
+	             System.err.println("Error Searching staff by Name: " + e.getMessage());
+	         }
+	        if (matchingStaff.isEmpty()) {
+	            System.out.println("No staff found with that name ");
+	        }
+	        return matchingStaff;
+	    }
+	    
 
 	    @Override
 	    public void addStaffFromConsole() {
@@ -175,8 +254,4 @@ public class StaffServiceImpl implements StaffService {
 	        }
 	        return id;
 	    }
-
-
-
-
 }
