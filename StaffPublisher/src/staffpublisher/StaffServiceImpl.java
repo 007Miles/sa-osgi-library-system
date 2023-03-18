@@ -217,7 +217,7 @@ public class StaffServiceImpl implements StaffService {
 	    	try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME));
 	    			BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME + ".tmp"))) {
 	    		
-	    		System.out.println("check 3");
+//	    		System.out.println("check 3");
 	            boolean found = false;
 	            System.out.print("Enter staff ID to update: ");
 	            
