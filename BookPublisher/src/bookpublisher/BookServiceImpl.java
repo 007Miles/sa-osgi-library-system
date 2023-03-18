@@ -24,7 +24,7 @@ public class BookServiceImpl implements BookService {
 	private ArrayList<String[]> list;
 	private HashMap<String, String> bookAvailability;
 	
-	private static final String FILE_NAME = "C:\\Users\\miyur\\eclipse-workspace_02\\BookPublisher\\src\\bookpublisher\\book_data.txt";
+	private static final String FILE_NAME = "D:\\SA\\Assignment1\\SA_OSGI_Library_System\\BookPublisher\\src\\bookpublisher\\book_data.txt";
 	private static final String path = System.getProperty("user.dir") + "\\book_data.txt";
 	
 	private List<Book> bookList = new ArrayList<>();
