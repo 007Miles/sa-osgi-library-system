@@ -9,13 +9,11 @@ public class Member {
 	private String email;
 	private String phoneNumber;
 	private String address;
+	private int staffid;
 	
-	
-
 	public Member() {}
 	
-	public Member(int memberId, String firstName, String lastName, String nic, String dob, String email, String phoneNumber,
-			String address) {
+	public Member(int memberId, String firstName, String lastName, String nic, String dob, String email, String phoneNumber,String address,int staffid) {
 		
 		this.memberId = memberId;
 		this.firstName = firstName;
@@ -25,6 +23,7 @@ public class Member {
 		this.phoneNumber = phoneNumber;
 		this.address = address;
 		this.nic = nic;
+		this.staffid = staffid;
 
 	}
 
@@ -34,6 +33,14 @@ public class Member {
 
 	public void setMemberId(int memberId) {
 		this.memberId = memberId;
+	}
+	
+	public int getStaffId() {
+		return staffid;
+	}
+
+	public void setStaffId(int staffid) {
+		this.staffid = staffid;
 	}
 
 	public String getDob() {
@@ -93,7 +100,7 @@ public class Member {
 	}
 	
 	public String toString() {
-        return "Member [memberid=" + memberId + ", firstName=" + firstName + ", lastName=" + lastName + "+, dob=" + dob + ", email=" + email + ", phoneNumber=" + phoneNumber + ", address=" + address +"]";
+        return "Member [memberid=" + memberId + ", firstName=" + firstName + ", lastName=" + lastName + "+, dob=" + dob + ", email=" + email + ", phoneNumber=" + phoneNumber + ", address=" + address +", nic=" + nic +", staffid=" + staffid +"]";
     }
 	
 

@@ -6,17 +6,19 @@ import org.osgi.framework.ServiceReference;
 
 
 
+
 import java.util.List;
 import java.util.Scanner;
 
 import memberpublisher.Member;
 import memberpublisher.MemberService;
+import staffpublisher.StaffService;
 
 
 public class Activator implements BundleActivator {
 
 	@SuppressWarnings("rawtypes")
-	ServiceReference memberServiceReference;
+	ServiceReference memberServiceReference, staffServiceReference;
 	private Scanner scan;
 
 	
@@ -28,11 +30,10 @@ public class Activator implements BundleActivator {
 		@SuppressWarnings("unchecked")
 		MemberService memberPublisher = (MemberService) context.getService(memberServiceReference);
 		
-//		
-//		System.out.println("\nEnter Member ID : ");
-//		   int memberid = scan.nextInt();
-//		   memberPublisher.getAvailabilityByID(memberid);
-//		   
+		staffServiceReference = context.getServiceReference(StaffService.class.getName());
+		@SuppressWarnings("unchecked")
+		StaffService staffService = (StaffService) context.getService(staffServiceReference);
+		
 		
 		while(true) {
 			int choice;
@@ -42,23 +43,32 @@ public class Activator implements BundleActivator {
 			System.out.println("3. Search Member Details");
 			System.out.println("4. Update Member Details");
 			System.out.println("5. Delete Member");
-			System.out.println("6. Check Availability by ID");
-			System.out.println("7. quit");
+			System.out.println("6. quit");
 			choice = scan.nextInt();
 
+			scan.nextLine();
 			
 			switch(choice) {
 			   
 			   case 1:
-				   memberPublisher.insertMemberDetails();
+				   System.out.println("\nPlease Enter your staff ID to continue : ");
+				   int staffid = scan.nextInt();
+				   
+				   if(staffService.getAvailability(staffid) == true) {
+					   memberPublisher.insertMemberDetails();
+				   }
+				   else {
+					   System.out.println("\n You have Entered invalid Staff ID");
+				   }
+				   
 				   break;
 			   case 2:
 				   List<Member> memberList = memberPublisher.getMemberAll();
                	for (Member member : memberList) {
-               	System.out.println("->" + member.getMemberId()+ " : " + member.getFirstName() + " : " + member.getLastName()+ " : "  + member.getAddress()  );
+               	System.out.println("-> " + "Member ID :" + member.getMemberId()+ "| First Name : "  + member.getFirstName() + "| Last Name : " + member.getLastName()+ "| DOB : "  + 
+               	member.getDob() + "| NIC : " + member.getNic() + "| PHone Number : " + member.getPhoneNumber()+ "| Email : " + member.getEmail()+ " | Address :" + member.getAddress()  );
                	}
                	
-//				   memberPublisher.getAllMemberDetails();
 				   break;
 			   case 3:
 				   while(true) {
@@ -73,46 +83,25 @@ public class Activator implements BundleActivator {
 						   break;
 					   }
 					   }
-			//				   while(true) {
-//				   System.out.println("\n\nEnter NIC: ");
-//				   String nic = scan.nextLine();
-//				   
-//				   if(nic.isBlank()) {
-//					   continue;
-//				   }
-//				   else {
-//					   memberPublisher.searchMemberDetails(nic);
-//					   break;
-//				   }
-//				   }
+
 				   break;
 			   case 4:
 				   System.out.println("\nEnter the NIC of the Member you want to Update Details");
-				   String nic = scan.nextLine();
-				   scan.nextLine();
+				   String nic = scan.nextLine(); 
 				   memberPublisher.editMemberDetails(nic);
-				   
 				   break;
 				   
 			   case 5:
 				   System.out.println("\nEnter the NIC of the Member you want to Delete");
 				   String dnic = scan.nextLine();
-				   memberPublisher.deleteMember(dnic);
 				   
+				   memberPublisher.deleteMember(dnic);
 				   break;
 				
 			   case 6:
-				   System.out.println("\nEnter Member ID check availability : ");
-				   int memberid = scan.nextInt();
-				   memberPublisher.getAvailabilityByID(memberid);
-				   break;
-				   
-				   
-			   case 7:
 				   System.out.println("Exiting...");
 				   System.exit(0);
 				   break;
-				  
 				   
 			   default:
 				   continue;
