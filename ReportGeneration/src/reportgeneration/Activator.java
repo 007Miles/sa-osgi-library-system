@@ -55,10 +55,7 @@ public class Activator implements BundleActivator {
 
             switch (choice) {
                 case 1	:	
-//                  List<IssuedBooks> issuedBooks = issueBookService.getAllIssuedBooks();
-//                  for (IssuedBooks issuedBook : issuedBooks) {
-//                 	System.out.println(issuedBook);
-//                 	}
+                	issueBookService.viewIssuedBooks();
                 	break;
                 case 2:
                     List<Book> bookList = bookService.getBooksbyFile();
@@ -82,7 +79,7 @@ public class Activator implements BundleActivator {
                     break;
 
                 case 5:
-                    System.out.println("Service Stoped");
+                    System.out.println("Exited from the system");
                     System.exit(0);
                     return;
 

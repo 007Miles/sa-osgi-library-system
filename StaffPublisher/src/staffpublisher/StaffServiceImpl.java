@@ -243,6 +243,7 @@ public class StaffServiceImpl implements StaffService {
 	    	
 	    }
 	
+	    // to auto increment the staff id for every new staff member
 	    private int getNextId() throws IOException {
 	        int id = 1;
 	        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
