@@ -9,10 +9,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-//import java.sql.Connection;
-//import java.sql.PreparedStatement;
-//import java.sql.ResultSet;
-//import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -20,18 +16,22 @@ import java.util.Scanner;
 
 public class StaffServiceImpl implements StaffService {
 	
+
+
 	private static final String FILE_NAME = "staff_data.txt";
 	
 	public StaffServiceImpl() {
 		
+
 	}
 
-	
 	    private List<Staff> staffList = new ArrayList<>();
 
 	    @Override
 	    public List<Staff> getAllStaff() {
+
 	    	
+
 	    	
 	    	List<Staff> staffList = new ArrayList<>();
 	        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
@@ -134,6 +134,8 @@ public class StaffServiceImpl implements StaffService {
 
 	    @Override
 	    public void addStaffFromConsole() {
+
+
 	        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	    	 try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
 	                 ) {
@@ -146,8 +148,6 @@ public class StaffServiceImpl implements StaffService {
 	             writer.write(staff.getId() + "," + staff.getName() + "," + staff.getRole() + "\n");
 	             System.out.println("Staff added successfully.");
 	             
-//	             close
-//	             writer.close();
 	         } catch (IOException e) {
 	             System.err.println("Error adding staff to file: " + e.getMessage());
 	         }
@@ -166,13 +166,14 @@ public class StaffServiceImpl implements StaffService {
 	            
 	            BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 	            int idToUpdate = Integer.parseInt(input.readLine()) ;
+
 	            String line;
 	            while ((line = reader.readLine()) != null) {
 	                String[] parts = line.split(",");
 	                int id = Integer.parseInt(parts[0]);
 	                String name = parts[1];
 	                String role = parts[2];
-//	                writer.write(" Hello \n");
+
 	                if (id == idToUpdate) {
 	                    found = true;
 	                    System.out.println(name+" "+role);
@@ -194,7 +195,9 @@ public class StaffServiceImpl implements StaffService {
 	            System.err.println("Error updating staff in file: " + e.getMessage());
 	        }
 	    	
+
 	        // Replace original file with updated one
+
 	        File file = new File(FILE_NAME);
 	        file.delete();
 	        File newfile = new File(FILE_NAME + ".tmp");
@@ -203,6 +206,8 @@ public class StaffServiceImpl implements StaffService {
 	    }
 
 	    @Override
+
+
 	    public void deleteStaffFromConsole() {	    	
 	    	
 	    	 try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME));
@@ -253,5 +258,4 @@ public class StaffServiceImpl implements StaffService {
 	        }
 	        return id;
 	    }
-
 }

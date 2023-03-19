@@ -12,11 +12,11 @@ import org.osgi.framework.ServiceReference;
 
 import bookpublisher.Book;
 import bookpublisher.BookService;
-
+import staffpublisher.StaffService;
 
 public class Activator implements BundleActivator {
 
-	ServiceReference bookServiceReference;
+	ServiceReference bookServiceReference, staffServiceReference;
 	private Scanner scan;
 
 	public void start(BundleContext context) throws Exception {
@@ -26,69 +26,39 @@ public class Activator implements BundleActivator {
 		@SuppressWarnings("unchecked")
 		BookService bookService = (BookService) context.getService(bookServiceReference);
 		
-//		try {
-//		InputStream myObj = bookpublisher.BookServiceImpl.class.getResourceAsStream("test_doc.txt");
-//		System.out.println("Available bytes in the file: " + myObj.available());
-//		myObj.close();
-//		}catch(IOException e) {
-//			System.out.println("cannot write");
-//		}
-		
-//		public void insertBookDetails();
-//		public void getAvailableBookd();
-//	 	public void getAllBooks();
-//		public void searchBookDetails(String keyword);
-//		public boolean getAvailability(String name);
-//		public void changeAvailability(String name);
-		
-		//books by file
+		//getting staff service
+		staffServiceReference = context.getServiceReference(StaffService.class.getName());
+		@SuppressWarnings("unchecked")
+		StaffService staffService = (StaffService) context.getService(staffServiceReference);
 		
 		
-//			List<Book> bList = bookService.getBooksbyFile();
-//			
-//			
-//			
-//	    	for (Book book : bList) {
-//	    		System.out.println("for loop");
-//	    		System.out.println(book.getBookName());
-//	    	}
-			
+		boolean flag = true;
 		
+
 		
-		
-//		System.out.println("test check");
-		
-//		bookService.insertBookDetails();
-////		
-////		wait();
-//		
-//		List<Book> bList = bookService.getBooksbyFile();
-//    	
-//		for (Book book : bList) {
-////    		System.out.println("for loop");
-//    		System.out.println(book.getBookName());
-//    	}
-		
-		bookService.editBookDetails("xtest","CHANGE-AVAIL-ORDER");
-		
-		
-		while(true) {
+		while(flag) {
 			int choice;
 			System.out.println("\n\n--------------choose an option from book Management--------------");
 			System.out.println("1. Insert a book");
 			System.out.println("2. get Available Books");
 			System.out.println("3. get All Books");
 			System.out.println("4. search Book Details");
-			System.out.println("5. get Availability");
-			System.out.println("6. Update book details");
-			System.out.println("7. quit");
+			System.out.println("5. Update book details");
+			System.out.println("6. quit");
 			choice = scan.nextInt();
-//			scan.next();
+			scan.nextLine();
 			
 			switch(choice) {
 			   
 			   case 1:
-				   bookService.insertBookDetails();
+				   System.out.println("\nPlease Enter your staff ID: ");
+				   int staffid = scan.nextInt();
+				   if(staffService.getAvailability(staffid)) {
+					   bookService.insertBookDetails();
+				   }
+				   else {
+					   System.out.println("\nInvalid Staff ID");
+				   }
 				   break;
 			   case 2:
 				   bookService.getAvailableBooks();
@@ -111,22 +81,13 @@ public class Activator implements BundleActivator {
 				   }
 				   break;
 			   case 5:
-				   System.out.println("\n\nEnter book name: ");
-				   String bookname = scan.nextLine();
-				   if(bookService.getAvailability(bookname)) {
-					   System.out.println("\book is available");
-				   }
-				   else {
-					   System.out.println("book is not available");
-				   }
+				   System.out.println("\nEnter the id of the book you want to update");
+				   Integer bid = scan.nextInt();
+				   
+				   bookService.editBookDetails(bid,"");
 				   break;
 			   case 6:
-				   System.out.println("\nEnter the name of the book you want to update");
-				   String bkname = scan.nextLine();
-				   
-				   bookService.editBookDetails(bkname, "");
-			   case 7:
-				   System.exit(0);
+				   flag = false;
 				   break;
 			   default:
 				   continue;
