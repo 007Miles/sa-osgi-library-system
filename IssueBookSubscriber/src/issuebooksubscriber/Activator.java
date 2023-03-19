@@ -32,7 +32,7 @@ public class Activator implements BundleActivator {
 		IssueBookPublish issueBookPublish = (IssueBookPublish) context.getService(serviceReference);
 		StaffService staffService = (StaffService) context.getService(sr);
 		BookService book = (BookService) context.getService(bookReference);
-		MemberService member = (MemberService) context.getService(memberReference); //
+//		MemberService member = (MemberService) context.getService(memberReference); //
 		
 		System.out.println(issueBookPublish.publishIssueBookService());
 		System.out.println();
@@ -71,7 +71,7 @@ public class Activator implements BundleActivator {
 							System.out.println("Enter User ID: ");
 							uid = sc.nextInt();
 							
-							if (member.getAvailabilityByID(uid) == true) { //
+//							if (member.getAvailabilityByID(uid) == true) { //
 								System.out.println("Enter Issue Date: ");
 								iDate = sc.next();
 								System.out.println("Enter Borrowing Period: ");
@@ -86,11 +86,12 @@ public class Activator implements BundleActivator {
 								issueBookPublish.setSid(sid);
 				
 								issueBookPublish.issueBooks(iid,uid,bid,iDate,period,sid);
+								book.editBookDetails(bid, "CHANGE-AVAIL-ORDER");
 								break;
-							} else {
-								System.err.println("Sorry, There is no member registered in the library with the given ID. Try again with valid info...");
-								continue; //
-							}
+//							} else {
+//								System.err.println("Sorry, There is no member registered in the library with the given ID. Try again with valid info...");
+//								continue; //
+//							}
 						} else {
 							System.err.println("Sorry the staff ID of the staff in charge of the book issuing process is not valid. Try again with valid info...");
 							continue;
@@ -110,6 +111,7 @@ public class Activator implements BundleActivator {
 				int riid;
 				String rDate;
 				int overdueDays;
+				int bid;
 				
 				System.out.println("Enter Issue ID: ");
 				riid = sc.nextInt();
@@ -117,8 +119,11 @@ public class Activator implements BundleActivator {
 				rDate = sc.next();
 				System.out.println("Enter No. of Overdue Days: ");
 				overdueDays = sc.nextInt();
+				System.out.println("Enter Book ID: ");
+				bid = sc.nextInt();
 				
 				issueBookPublish.returnBooks(riid, rDate, overdueDays);
+				book.editBookDetails(bid, "CHANGE-AVAIL-ORDER");
 				continue;
 			}
 			else if (input == 4) {
@@ -126,6 +131,7 @@ public class Activator implements BundleActivator {
 				continue;
 			}
 			else if (input == 5) {
+				System.out.println("Thank you for using Issue Book Service... Good Bye!!!");
 				System.exit(0);
 				break;
 			}
