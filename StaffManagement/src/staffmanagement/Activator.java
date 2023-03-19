@@ -100,7 +100,7 @@ public class Activator implements BundleActivator {
                 	break;
 
                 case 6:
-                    System.out.println("Service Stoped");
+                    System.out.println("Exited From The System");
                     System.exit(0);
                     return;
 
