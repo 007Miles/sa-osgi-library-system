@@ -31,9 +31,10 @@ public class Staff {
         this.role = role;
     }
 
+    // Staff object details will be displayed as a String
     @Override
     public String toString() {
-        return "Staff [id=" + id + ", name=" + name + ", role=" + role + "]";
+        return "Staff [ id= " + id + ", name= " + name + ", role= " + role + " ]";
     }
 }
 

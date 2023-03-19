@@ -2,7 +2,7 @@ package bookpublisher;
 
 public class Book {
 	
-//	private Integer bookId;
+	private Integer bookId;
 	private String bookName;
 	private String authorName;
 	private String genre;
@@ -13,10 +13,10 @@ public class Book {
 	public Book() {}
 
 
-	public Book( String bookName, String authorName, String genre, String isbnNUmber,
+	public Book( Integer bookId, String bookName, String authorName, String genre, String isbnNUmber,
 			String availability) {
 
-//		this.bookId = bookId;
+		this.bookId = bookId;
 		this.bookName = bookName;
 		this.authorName = authorName;
 		this.genre = genre;
@@ -25,14 +25,14 @@ public class Book {
 	}
 
 
-//	public Integer getBookId() {
-//		return bookId;
-//	}
-//
-//
-//	public void setBookId(Integer bookId) {
-//		this.bookId = bookId;
-//	}
+	public Integer getBookId() {
+		return bookId;
+	}
+
+
+	public void setBookId(Integer bookId) {
+		this.bookId = bookId;
+	}
 
 
 	public String getBookName() {

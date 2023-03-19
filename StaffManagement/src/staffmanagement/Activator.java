@@ -36,7 +36,7 @@ public class Activator implements BundleActivator {
             System.out.println("1. List all staff members");
             System.out.println("2. Add a new staff member");
             System.out.println("3. Update staff member details");
-            System.out.println("4. Delete a staff member");
+            System.out.println("4. Remove a staff member");
             System.out.println("5. Search Staff member");
             System.out.println("6. Exit");
             System.out.println("---------------------------------------------------------------------------");
@@ -100,7 +100,7 @@ public class Activator implements BundleActivator {
                 	break;
 
                 case 6:
-                    System.out.println("Exiting...");
+                    System.out.println("Exited From The System");
                     System.exit(0);
                     return;
 

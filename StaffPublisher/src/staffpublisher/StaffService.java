@@ -3,7 +3,6 @@ package staffpublisher;
 import java.util.List;
 
 public interface StaffService {
-//	public void testdb();
 	
 	List<Staff> getAllStaff();
 	boolean getAvailability(int id);

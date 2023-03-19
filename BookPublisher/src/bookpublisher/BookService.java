@@ -10,12 +10,14 @@ public interface BookService {
 	
  	public void getAllBooks();
 	public void searchBookDetails(String keyword);
-	public boolean getAvailability(String name);
-	public void changeAvailability(String name);
+//	public boolean getAvailability(String name);
+//	public void changeAvailability(String name);
 	
+	public boolean getBookAvailabilityById(Integer id);
 	
+
 	
 	public List<Book> getBookListByClass();
-	public void editBookDetails(String name, String command); 
+	public void editBookDetails(Integer id, String command); 
 	public List<Book> getBooksbyFile();
 }
