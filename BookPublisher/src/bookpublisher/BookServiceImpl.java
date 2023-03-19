@@ -21,7 +21,7 @@ public class BookServiceImpl implements BookService {
 	private ArrayList<String[]> list;
 	private HashMap<Integer, String> bookAvailability;
 	
-	private static final String FILE_NAME = "C:\\Users\\miyur\\eclipse-workspace_02\\BookPublisher\\src\\bookpublisher\\book_data.txt";
+	private static final String FILE_NAME = "book_data.txt";
 
 	
 	private List<Book> bookList = new ArrayList<>();
@@ -161,16 +161,16 @@ public class BookServiceImpl implements BookService {
 		int count = 0;
 		List<Book> bookListtoAvailabale = this.getBooksbyFile();
 		
-		
+		String keyWordLower = keyword.toLowerCase();
 		
 		for(Book book: bookListtoAvailabale) {
-			if(book.getBookName().contains(keyword) || book.getAuthorName().contains(keyword) 
-					|| book.getGenre().contains(keyword) || book.getIsbnNUmber().contains(keyword)) {
+			if(book.getBookName().toLowerCase().contains(keyWordLower) || book.getAuthorName().toLowerCase().contains(keyWordLower) 
+					|| book.getGenre().toLowerCase().contains(keyWordLower) || book.getIsbnNUmber().toLowerCase().contains(keyWordLower)) {
 				
 				
 				
-				System.out.println(count +1 + ". Name:" + book.getBookName()
-				+" author:"+book.getAuthorName() + " genre:"+ book.getGenre()+" availability:" + book.getAvailability()) ;
+				System.out.println(count +1 + ". Name: " + book.getBookName()
+				+" | author:"+book.getAuthorName() + " | genre: "+ book.getGenre()+" | availability: " + book.getAvailability()) ;
 				count++;
 				
 			}
