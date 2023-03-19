@@ -121,6 +121,8 @@ public class BookServiceImpl implements BookService {
 		int count = 0;
 		List<Book> bookListtoAvailabale = this.getBooksbyFile();
 		
+		System.out.println("");
+		
 		for(Book book: bookListtoAvailabale) {
 			if(book.getAvailability().equals("available")) {
 				System.out.println(count+1 + ". " + book.getBookName());
@@ -230,7 +232,10 @@ public class BookServiceImpl implements BookService {
 		}
 	}
 	
-	public void editBookDetails(String name, String command) {
+	
+	
+	
+	public void editBookDetails(Integer id, String command) {
 //		File oldfile = new File(FILE_NAME);
 //		File newfile = new File("C:\\Users\\miyur\\eclipse-workspace_02\\BookPublisher\\src\\bookpublisher\\temp.txt");
 		List<Book> bookListtoUpdate = this.getBooksbyFile();
@@ -245,18 +250,20 @@ public class BookServiceImpl implements BookService {
 			
 			for(Book book: bookListtoUpdate) {
 				
-				if(book.getBookName().equals(name)) {
-					System.out.println("Enter new name: ");
-					tbName = scan2.nextLine();
-					System.out.println("Enter new author name: ");
-					tbAuthor = scan2.nextLine();
-					System.out.println("Enter new genre name: ");
-					tbGenre = scan2.nextLine();
-					System.out.println("Enter new isbn number: ");
-					tbisbn = scan2.nextLine();
+				if(book.getBookId().equals(id)) {
 					
 					if(command.equals("CHANGE-AVAIL-ORDER")) {
 						book.setAvailability(changeString(book.getAvailability()));
+					}
+					else {
+						System.out.println("Enter new name: ");
+						tbName = scan2.nextLine();
+						System.out.println("Enter new author name: ");
+						tbAuthor = scan2.nextLine();
+						System.out.println("Enter new genreS: ");
+						tbGenre = scan2.nextLine();
+						System.out.println("Enter new isbn number: ");
+						tbisbn = scan2.nextLine();
 					}
 					
 					writer.write(book.getBookId()+","+tbName+","+ tbAuthor+","+ tbGenre+","+ tbisbn
@@ -337,8 +344,5 @@ public class BookServiceImpl implements BookService {
 		
 		return false;
 	}
-	
-	
-	
 
 }

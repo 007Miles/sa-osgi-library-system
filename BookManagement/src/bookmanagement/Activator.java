@@ -53,7 +53,7 @@ public class Activator implements BundleActivator {
 			   case 1:
 				   System.out.println("\nPlease Enter your staff ID: ");
 				   int staffid = scan.nextInt();
-				   if(staffService.getStaffById(staffid)!=null) {
+				   if(staffService.getAvailability(staffid)) {
 					   bookService.insertBookDetails();
 				   }
 				   else {
@@ -81,10 +81,10 @@ public class Activator implements BundleActivator {
 				   }
 				   break;
 			   case 5:
-				   System.out.println("\nEnter the name of the book you want to update");
-				   String bkname = scan.nextLine();
+				   System.out.println("\nEnter the id of the book you want to update");
+				   Integer bid = scan.nextInt();
 				   
-				   bookService.editBookDetails(bkname, "");
+				   bookService.editBookDetails(bid,"");
 				   break;
 			   case 6:
 				   flag = false;
