@@ -15,7 +15,9 @@ public interface BookService {
 	
 	public boolean getBookAvailabilityById(Integer id);
 	
+
+	
 	public List<Book> getBookListByClass();
-	public void editBookDetails(String name, String command); 
+	public void editBookDetails(Integer id, String command); 
 	public List<Book> getBooksbyFile();
 }
