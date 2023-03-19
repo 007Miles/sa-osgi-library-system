@@ -32,7 +32,7 @@ public class Activator implements BundleActivator {
 		IssueBookPublish issueBookPublish = (IssueBookPublish) context.getService(serviceReference);
 		StaffService staffService = (StaffService) context.getService(sr);
 		BookService book = (BookService) context.getService(bookReference);
-//		MemberService member = (MemberService) context.getService(memberReference);
+		MemberService member = (MemberService) context.getService(memberReference); //
 		
 		System.out.println(issueBookPublish.publishIssueBookService());
 		System.out.println();
@@ -71,7 +71,7 @@ public class Activator implements BundleActivator {
 							System.out.println("Enter User ID: ");
 							uid = sc.nextInt();
 							
-//							if (member.getAvailabilityByID(uid) == true) {
+							if (member.getAvailabilityByID(uid) == true) { //
 								System.out.println("Enter Issue Date: ");
 								iDate = sc.next();
 								System.out.println("Enter Borrowing Period: ");
@@ -87,10 +87,10 @@ public class Activator implements BundleActivator {
 				
 								issueBookPublish.issueBooks(iid,uid,bid,iDate,period,sid);
 								break;
-//							} else {
-//								System.err.println("Sorry, There is no member registered in the library with the given ID. Try again with valid info...");
-//								continue;
-//							}
+							} else {
+								System.err.println("Sorry, There is no member registered in the library with the given ID. Try again with valid info...");
+								continue; //
+							}
 						} else {
 							System.err.println("Sorry the staff ID of the staff in charge of the book issuing process is not valid. Try again with valid info...");
 							continue;
