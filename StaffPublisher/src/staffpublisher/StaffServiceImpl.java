@@ -17,16 +17,21 @@ import java.util.Scanner;
 public class StaffServiceImpl implements StaffService {
 	
 
-	
+
 	private static final String FILE_NAME = "staff_data.txt";
 	
 	public StaffServiceImpl() {
+		
+
 	}
 
 	    private List<Staff> staffList = new ArrayList<>();
 
 	    @Override
 	    public List<Staff> getAllStaff() {
+
+	    	
+
 	    	
 	    	List<Staff> staffList = new ArrayList<>();
 	        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
@@ -66,12 +71,6 @@ public class StaffServiceImpl implements StaffService {
 
 	    @Override
 	    public Staff getStaffById() {
-//	        for (Staff staff : staffList) {
-//	            if (staff.getId() == id) {
-//	                return staff;
-//	            }
-//	        }
-//	        return null;
 	    	
 	    	System.out.print("Enter staff ID: ");
 	    	
@@ -106,7 +105,6 @@ public class StaffServiceImpl implements StaffService {
 	    	System.out.print("Enter Staff Name: ");
 	    	
 	    	BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-//	        String name = System.console().readLine();
 	        
 	        List<Staff> matchingStaff = new ArrayList<>();
 
@@ -137,6 +135,7 @@ public class StaffServiceImpl implements StaffService {
 	    @Override
 	    public void addStaffFromConsole() {
 
+
 	        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	    	 try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
 	                 ) {
@@ -161,7 +160,6 @@ public class StaffServiceImpl implements StaffService {
 	    	try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME));
 	    			BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME + ".tmp"))) {
 	    		
-	    		System.out.println("check 3");
 	            boolean found = false;
 	            System.out.print("Enter staff ID to update: ");
 	            
@@ -197,6 +195,9 @@ public class StaffServiceImpl implements StaffService {
 	            System.err.println("Error updating staff in file: " + e.getMessage());
 	        }
 	    	
+
+	        // Replace original file with updated one
+
 	        File file = new File(FILE_NAME);
 	        file.delete();
 	        File newfile = new File(FILE_NAME + ".tmp");
@@ -205,7 +206,9 @@ public class StaffServiceImpl implements StaffService {
 	    }
 
 	    @Override
-	    public void deleteStaffFromConsole() {    	
+
+
+	    public void deleteStaffFromConsole() {	    	
 	    	
 	    	 try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME));
 	                 BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME + ".tmp"))) {
@@ -232,7 +235,7 @@ public class StaffServiceImpl implements StaffService {
 	             } catch (IOException e) {
 	             System.err.println("Error deleting staff from file: " + e.getMessage());
 	             }
-	             // Replace original file with updated file
+	             // Replace original file with updated one
 	             File file = new File(FILE_NAME);
 	             file.delete();
 	             File newfile = new File(FILE_NAME + ".tmp");

@@ -25,7 +25,6 @@ public class MemberServicelmpl implements MemberService {
 	private static final String FILE_NAME = "F:\\3_rd_Year\\1_st_Sem\\Software_Architecture_SE3030\\Project_git\\SA_OSGI_Library_System\\MemberPublisher\\src\\memberpublisher\\member_data.txt";
 	
 	
-	
 	private List<Member> memberList = new ArrayList<>();
 	
 	public MemberServicelmpl() {
