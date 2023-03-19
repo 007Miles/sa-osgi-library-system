@@ -12,11 +12,11 @@ import org.osgi.framework.ServiceReference;
 
 import bookpublisher.Book;
 import bookpublisher.BookService;
-
+import staffpublisher.StaffService;
 
 public class Activator implements BundleActivator {
 
-	ServiceReference bookServiceReference;
+	ServiceReference bookServiceReference, staffServiceReference;
 	private Scanner scan;
 
 	public void start(BundleContext context) throws Exception {
@@ -25,6 +25,12 @@ public class Activator implements BundleActivator {
 		
 		@SuppressWarnings("unchecked")
 		BookService bookService = (BookService) context.getService(bookServiceReference);
+		
+		//getting staff service
+		staffServiceReference = context.getServiceReference(StaffService.class.getName());
+		@SuppressWarnings("unchecked")
+		StaffService staffService = (StaffService) context.getService(staffServiceReference);
+		
 		
 		boolean flag = true;
 		
@@ -45,7 +51,14 @@ public class Activator implements BundleActivator {
 			switch(choice) {
 			   
 			   case 1:
-				   bookService.insertBookDetails();
+				   System.out.println("\nPlease Enter your staff ID: ");
+				   int staffid = scan.nextInt();
+				   if(staffService.getStaffById(staffid)!=null) {
+					   bookService.insertBookDetails();
+				   }
+				   else {
+					   System.out.println("\nInvalid Staff ID");
+				   }
 				   break;
 			   case 2:
 				   bookService.getAvailableBooks();
