@@ -15,9 +15,7 @@ import java.util.Scanner;
 
 public class IssueBookPublishImpl implements IssueBookPublish {
 	
-//	String path = "C:\\Users\\HP\\Desktop\\SLIIT\\3Y 1S\\SA - SE3030\\Assignment 01\\Issue Books.txt"; 
 	String path = "Issue Books.txt";
-//	String path = "Issue Books.txt";
 	String line = "";
 	
 	private int iid;
@@ -50,7 +48,6 @@ public class IssueBookPublishImpl implements IssueBookPublish {
 		
 		File ibooks = new File(path);
 		try {
-//			PrintWriter out = new PrintWriter(ibooks);
 			BufferedWriter out = new BufferedWriter(new FileWriter(ibooks,true));
 			out.append(iid + "," + uid + "," + bid + "," + iDate + ",Pending," + period + ",Pending" + "," + sid);
 			out.newLine();
@@ -98,7 +95,6 @@ public class IssueBookPublishImpl implements IssueBookPublish {
 		System.out.println("\nRs.20 per one overdue day...");
 		System.out.println("\nTotal fine charged for Issue id: " + riid + " is Rs." + fine + ".00\n");
 		
-//		String tempFile = "C:\\Users\\HP\\Desktop\\SLIIT\\3Y 1S\\SA - SE3030\\Assignment 01\\temp file.txt";
 		String tempFile = "temp file.txt";
 		String Ifile = "C:\\Users\\HP\\Desktop\\SLIIT\\3Y 1S\\SA - SE3030\\Assignment 01\\Return Books.txt";
 		File oldFile = new File(path);
@@ -145,7 +141,6 @@ public class IssueBookPublishImpl implements IssueBookPublish {
 					
 				}
 			}
-//			Path delPath = Paths.get("C:\\Users\\HP\\Desktop\\SLIIT\\3Y 1S\\SA - SE3030\\Assignment 01\\Issue Books.txt");
 			
 			s.close();
 			pw.flush();
@@ -189,11 +184,6 @@ public class IssueBookPublishImpl implements IssueBookPublish {
 			} catch (Exception e) {
 				System.err.println("Can't read Returned book list: " + e.getMessage()); 
 			}
-//				catch (FileNotFoundException e) {
-//				e.printStackTrace(); 
-//			} catch (IOException e) {
-//				e.printStackTrace(); 
-//			} 
 		}
 		
 	}
