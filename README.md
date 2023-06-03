@@ -1,4 +1,4 @@
-# sa-osgi-library-system
+# OSGi Library System
 The library management system is a software application that is developed using the java based OSGI 
 Framework. This system helps manage the day-to-day operations of a library. It is designed to provide 
 library administrators and staff members with a set of tools to manage books, members, staff and 
